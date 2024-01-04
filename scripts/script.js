@@ -69,7 +69,20 @@ function createGameBoard() {
     return {getBoard, setBoard, gameEnd};
 }
 
+function createPlayer(name, choice){
+    const playerName = name
+    let score = 0
+    let letter = choice
+    const getScore = () => score
+    const addScore = () => score++
+    const setLetter = () => letter = !letter
+    const getLetter = () => letter
+    return {name, getScore, addScore, getLetter,setLetter}
+}
+
 const board = createGameBoard()
+const playerOne = createPlayer("João", true)
+const playerTwo = createPlayer("Carlos", false)
 
 board.setBoard(0,0)
 board.setBoard(1,1)
