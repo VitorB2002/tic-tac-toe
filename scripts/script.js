@@ -102,7 +102,7 @@ function playerMark(x,y){
 
     board.setBoard(x,y,mark)
     let end = board.gameEnd(board.getBoard())
-    
+    console.log(end)
     if(end == 'X'){
         if(playerOne.getLetter() == mark){
             playerOne.addScore()
@@ -121,7 +121,7 @@ function playerMark(x,y){
         board.resetBoard()
         board.resetRound()
         return
-    }   else if(end == '0'){
+    }   else if(end == 'O'){
         if(playerOne.getLetter() == mark){
             playerOne.addScore()
             console.log(playerOne.name + " ganhou com O")
@@ -143,6 +143,9 @@ function playerMark(x,y){
 
     board.setMark()
     board.setRound()
+    console.log(board.getBoard()[0])
+    console.log(board.getBoard()[1])
+    console.log(board.getBoard()[2])
 
     if(round == 8){
         console.log("Empatou\n")
@@ -157,22 +160,6 @@ function playerMark(x,y){
         return
     }
 }
-
-/** 
-const board = createGameBoard()
-const playerOne = createPlayer("João", true)
-const playerTwo = createPlayer("Carlos", false)
-
-playerMark(0,0)
-playerMark(0,1)
-playerMark(1,1)
-playerMark(2,2)
-playerMark(2,1)
-playerMark(2,0)
-playerMark(0,2)
-playerMark(1,0)
-playerMark(1,2)
-*/
 
 function handleModal(){
     let modal = document.querySelector("dialog")
@@ -189,5 +176,28 @@ function startGame(){
         playerOne = createPlayer(nameOne, true)
         playerTwo = createPlayer(nameTwo, false)
         board = createGameBoard()
+        gameBoardShow()
+    }
+}
+
+function gameBoardShow(){
+    const gameBoard = document.getElementById("game-board")
+    gameBoard.style.backgroundColor = "black"
+
+    for(let i = 0; i <= 2; i++){
+        for(let j = 0; j <= 2; j++){
+            let box = document.createElement("div")
+            box.className = "box"
+            box.setAttribute("x", i)
+            box.setAttribute("y", j)
+            box.addEventListener("click", (e) => {
+                let x = e.target.getAttribute("x")
+                let y = e.target.getAttribute("y")
+                
+                e.target.innerHTML = board.getMark() ? "X" : "O"
+                playerMark(x, y)
+            })
+            gameBoard.appendChild(box)
+        }
     }
 }
