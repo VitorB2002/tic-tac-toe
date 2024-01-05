@@ -1,3 +1,7 @@
+let playerOne
+let playerTwo
+let board
+
 function createGameBoard() {
     let round = 0
     let mark = true
@@ -154,10 +158,10 @@ function playerMark(x,y){
     }
 }
 
+/** 
 const board = createGameBoard()
 const playerOne = createPlayer("João", true)
 const playerTwo = createPlayer("Carlos", false)
-
 
 playerMark(0,0)
 playerMark(0,1)
@@ -168,3 +172,22 @@ playerMark(2,0)
 playerMark(0,2)
 playerMark(1,0)
 playerMark(1,2)
+*/
+
+function handleModal(){
+    let modal = document.querySelector("dialog")
+    modal.showModal()
+}
+
+function startGame(){
+    let nameOne = document.getElementById("playerOneName").value
+    let nameTwo = document.getElementById("playerTwoName").value
+    if(nameOne == "" || nameTwo == ""){
+        let warning = document.getElementById("warning")
+        warning.innerHTML = "Preencha os dois nomes*"
+    }   else{
+        playerOne = createPlayer(nameOne, true)
+        playerTwo = createPlayer(nameTwo, false)
+        board = createGameBoard()
+    }
+}

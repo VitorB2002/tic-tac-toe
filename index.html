@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tic Tac Toe</title>
+        <script defer src="./scripts/script.js"></script>
+        <link rel="stylesheet" href="./styles/stylesheet.css">
+    </head>
+
+    <body>
+        <header>
+            <h1>X | O | X</h1>
+        </header>
+
+        <hero>
+            <button onclick="handleModal()">Novo Jogo</button>
+        </hero>
+
+        <dialog>
+            <form method="dialog">
+                <label for="playerOneName">Nome jogador 1</label>
+                <input name="playerOneName" id="playerOneName" required>
+
+                <label for="playerTwoName">Nome jogador 2</label>
+                <input name="playerTwoName" id="playerTwoName" required>
+
+                <h5 style="color: red; text-align: center;">O jogador 1 começa no primeiro round*</h3>
+                <button onclick="startGame()">Começar</button>
+                <h3 id="warning"></h3>
+            </form>
+        </dialog>
+        
+        <main>
+            
+        </main>
+
+        <footer>
+
+        </footer>
+    </body>
+</html>
