@@ -36,7 +36,7 @@ button {
 }
 
 dialog {
-    width: 300px;
+    min-width: 300px;
     height: 300px;
     top: calc(50% - 150px);
     bottom: calc(50% - 150px);
@@ -46,6 +46,7 @@ dialog {
 
 form {
     display: flex;
+    width: 300px;
     flex-direction: column;
     justify-content: space-between;
     gap: 10px;
