@@ -85,3 +85,10 @@ main {
     background-color: #EAE1DF;
     color: #3cb371;
 }
+
+#result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
