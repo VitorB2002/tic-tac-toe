@@ -1,6 +1,9 @@
 let playerOne
 let playerTwo
 let board
+const display = document.getElementById("display")
+const gameBoard = document.getElementById("game-board")
+const resultDisplay = document.getElementById("result")
 
 function createGameBoard() {
     let round = 0
@@ -106,9 +109,9 @@ function playerMark(x,y){
     if(end == 'X'){
         if(playerOne.getLetter() == mark){
             playerOne.addScore()
-            console.log(playerOne.name + " ganhou com X")
+            roundEnd(playerOne.name + " ganhou com X")
         }   else{
-            console.log(playerTwo.name + " ganhou com X")
+            roundEnd(playerTwo.name + " ganhou com X")
             playerTwo.addScore()
         }
 
@@ -120,13 +123,14 @@ function playerMark(x,y){
 
         board.resetBoard()
         board.resetRound()
+        updateDisplay()
         return
     }   else if(end == 'O'){
         if(playerOne.getLetter() == mark){
             playerOne.addScore()
-            console.log(playerOne.name + " ganhou com O")
+            roundEnd(playerOne.name + " ganhou com O")
         }   else{
-            console.log(playerTwo.name + " ganhou com O")
+            roundEnd(playerTwo.name + " ganhou com O")
             playerTwo.addScore()
         }
 
@@ -138,17 +142,23 @@ function playerMark(x,y){
 
         board.resetBoard()
         board.resetRound()
+        updateDisplay()
         return
     }
 
     board.setMark()
     board.setRound()
+    if(board.getMark() == playerOne.getLetter()){
+        turn.innerHTML = "Vez de " + playerOne.name
+    }   else{
+        turn.innerHTML = "Vez de " + playerTwo.name
+    }
     console.log(board.getBoard()[0])
     console.log(board.getBoard()[1])
     console.log(board.getBoard()[2])
 
     if(round == 8){
-        console.log("Empatou\n")
+        roundEnd("Empatou")
         playerOne.setLetter(playerOne.getLetter())
         playerTwo.setLetter(playerTwo.getLetter())
         console.log(board.getBoard()[0])
@@ -176,14 +186,13 @@ function startGame(){
         playerOne = createPlayer(nameOne, true)
         playerTwo = createPlayer(nameTwo, false)
         board = createGameBoard()
+        displayShow()
         gameBoardShow()
     }
 }
 
 function gameBoardShow(){
-    const gameBoard = document.getElementById("game-board")
     gameBoard.style.backgroundColor = "black"
-
     for(let i = 0; i <= 2; i++){
         for(let j = 0; j <= 2; j++){
             let box = document.createElement("div")
@@ -200,4 +209,61 @@ function gameBoardShow(){
             gameBoard.appendChild(box)
         }
     }
+}
+
+function resetGameBoard(){
+    let board = document.getElementsByClassName("box")
+    for(let i = 0; i < 9; i++){
+        board.item(i).innerHTML = ""
+    }
+    
+    while(resultDisplay.firstChild){
+        resultDisplay.firstChild.remove()
+    }
+}
+
+function displayShow(){
+    let displayText = document.createElement("h3")
+    let displayPoints = document.createElement("h3")
+    let turn = document.createElement("h3")
+
+    displayText.innerHTML = playerOne.name + " X " + playerTwo.name
+    displayPoints.innerHTML = playerOne.getScore() + " : " + playerTwo.getScore()
+    displayPoints.id = "points"
+    turn.id = "turn"
+
+    if(board.getMark() == playerOne.getLetter()){
+        turn.innerHTML = "Vez de " + playerOne.name
+    }   else{
+        turn.innerHTML = "Vez de " + playerTwo.name
+    }
+
+    display.appendChild(displayText)
+    display.appendChild(displayPoints)
+    display.appendChild(turn)
+    return
+}
+
+function updateDisplay(){
+    let displayPoints = document.getElementById("points")
+    displayPoints.innerHTML = playerOne.getScore() + " : " + playerTwo.getScore()
+}
+
+function updateTurn(){
+    let turn = document.getElementById("turn")
+    if(board.getMark() == playerOne.getLetter()){
+        turn.innerHTML = "Vez de " + playerOne.name
+    }   else{
+        turn.innerHTML = "Vez de " + playerTwo.name
+    }
+}
+
+function roundEnd(result){
+    let displayResult = document.createElement("h3")
+    let resetButton = document.createElement("button")
+    displayResult.innerHTML = result
+    resetButton.innerHTML = "Novo round"
+    resetButton.addEventListener("click", () => {resetGameBoard()})
+    resultDisplay.appendChild(displayResult)
+    resultDisplay.appendChild(resetButton)
 }

@@ -25,6 +25,12 @@ hero {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    align-items: center;
+}
+
+#display {
+    color: #EAE1DF;
+    text-align: center;
 }
 
 button {
